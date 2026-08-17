@@ -96,14 +96,6 @@ export function ProductInfo({ product }: ProductInfoProps) {
         )}
       </div>
 
-      {/* Описание */}
-      <div className="mt-6">
-        <h2 className="text-sm font-semibold text-gray-900">Описание</h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-600">
-          {product.description}
-        </p>
-      </div>
-
       {/* Продавец */}
       <div className="mt-4 rounded-lg bg-gray-50 p-4">
         <span className="text-sm text-gray-500">Продавец</span>
