@@ -6,7 +6,6 @@ import cartReducer from "./cartSlice";
 import favoritesReducer from "./favoritesSlice";
 import filtersReducer from "./filtersSlice";
 import ordersReducer from "./ordersSlice";
-import uiReducer from "./uiSlice";
 import userReducer from "./userSlice";
 
 export const store = configureStore({
@@ -16,7 +15,6 @@ export const store = configureStore({
     favorites: favoritesReducer,
     filters: filtersReducer,
     orders: ordersReducer,
-    ui: uiReducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
