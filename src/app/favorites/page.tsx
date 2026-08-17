@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useGetProductsQuery } from "@/store/api";
 import { useAppSelector } from "@/store";
-import { mapPlatziProductToProduct } from "@/lib/mappers";
+import { mapDummyJsonProductToProduct } from "@/lib/mappers";
 
 import { ProductGrid } from "@/components/catalog/ProductGrid";
 import { EmptyState } from "@/components/common/EmptyState";
@@ -18,7 +18,7 @@ export default function FavoritesPage() {
   const favoriteProducts = useMemo(() => {
     return rawProducts
       .filter((product) => favoriteIds.includes(String(product.id)))
-      .map(mapPlatziProductToProduct);
+      .map(mapDummyJsonProductToProduct);
   }, [rawProducts, favoriteIds]);
 
   if (isLoading) {
