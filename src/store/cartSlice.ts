@@ -64,7 +64,6 @@ const cartSlice = createSlice({
         if (item.quantity > 1) {
           item.quantity -= 1;
         } else {
-          // Удаляем товар, если количество стало 0
           state.items = state.items.filter(
             (i) => i.productId !== action.payload
           );
