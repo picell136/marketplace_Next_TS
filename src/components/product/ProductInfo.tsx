@@ -56,7 +56,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
     <div className="flex flex-col">
       {/* Категория */}
       <span className="text-sm font-medium uppercase tracking-wide text-gray-500">
-        {product.category}
+        {product.categoryId}
       </span>
 
       {/* Название */}
