@@ -35,7 +35,6 @@ export function Pagination({ totalPages }: PaginationProps) {
     }
   };
 
-  // Генерируем массив номеров страниц
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
