@@ -1,10 +1,8 @@
 import { DummyJsonProduct, DummyJsonCategory, Product, Category } from "@/types";
 
 export function mapDummyJsonProductToProduct(product: DummyJsonProduct): Product {
-  // Конвертируем цену в рубли
   const priceInRubles = Math.round(product.price * 100);
 
-  // Считаем старую цену на основе скидки
   const oldPrice =
     product.discountPercentage > 0
       ? Math.round(priceInRubles / (1 - product.discountPercentage / 100))
@@ -24,6 +22,13 @@ export function mapDummyJsonProductToProduct(product: DummyJsonProduct): Product
     reviewsCount: product.reviews?.length ?? 0,
     stock: product.stock,
     creationDate: product.meta?.createdAt ?? new Date().toISOString(),
+    reviews: (product.reviews ?? []).map((review) => ({
+      rating: review.rating,
+      comment: review.comment,
+      date: review.date,
+      reviewerName: review.reviewerName,
+      reviewerEmail: review.reviewerEmail,
+    })),
   };
 }
 
