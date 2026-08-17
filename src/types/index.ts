@@ -64,6 +64,7 @@ export interface Product {
   reviewsCount: number;
   stock: number;
   creationDate: string;
+  reviews: Review[];
 }
 
 export interface Category {
@@ -133,4 +134,12 @@ export interface StoredUser extends User {
 export interface AuthState {
   currentUser: User | null;
   isAuthenticated: boolean;
+}
+
+export interface Review {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
 }
