@@ -13,7 +13,7 @@ export const dummyJsonApi = createApi({
   endpoints: (builder) => ({
     // Все товары (100 штук)
     getProducts: builder.query<DummyJsonProduct[], void>({
-      query: () => "/products?limit=100&skip=0",
+      query: () => "/products?limit=150&skip=0",
       transformResponse: (response: { products: DummyJsonProduct[] }) =>
         response.products,
     }),
