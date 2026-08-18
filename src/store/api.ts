@@ -11,9 +11,9 @@ export const dummyJsonApi = createApi({
   reducerPath: "dummyJsonApi",
   baseQuery: baseQueryWithRetry,
   endpoints: (builder) => ({
-    // Все товары (100 штук)
+    // Все товары (250 штук)
     getProducts: builder.query<DummyJsonProduct[], void>({
-      query: () => "/products?limit=150&skip=0",
+      query: () => "/products?limit=250&skip=0",
       transformResponse: (response: { products: DummyJsonProduct[] }) =>
         response.products,
     }),
