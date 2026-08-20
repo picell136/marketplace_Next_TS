@@ -22,7 +22,8 @@ export function mapDummyJsonProductToProduct(product: DummyJsonProduct): Product
     reviewsCount: product.reviews?.length ?? 0,
     stock: product.stock,
     creationDate: product.meta?.createdAt ?? new Date().toISOString(),
-    reviews: (product.reviews ?? []).map((review) => ({
+    reviews: (product.reviews ?? []).map((review, index) => ({
+      id: `api-${product.id}-${index}`,
       rating: review.rating,
       comment: review.comment,
       date: review.date,

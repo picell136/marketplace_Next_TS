@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Star } from "lucide-react";
 
 import { useAppDispatch, useAppSelector } from "@/store";
-import { addReview } from "@/store/reviewsSlice";
+import addReview from "@/store/reviewsSlice";
 import { UserReview } from "@/types";
 
 interface ReviewFormProps {
@@ -54,13 +54,15 @@ export function ReviewForm({ productId }: ReviewFormProps) {
     setHoveredStar(0);
   };
 
-  // Если не авторизован — показываем призыв войти
   if (!isAuthenticated) {
     return (
       <div className="mt-8 rounded-lg border bg-gray-50 p-6 text-center">
         <p className="text-sm text-gray-600">
           Чтобы оставить отзыв,{" "}
-          <a href="/login" className="font-medium text-blue-600 hover:underline">
+          <a
+            href="/login"
+            className="font-medium text-blue-600 hover:underline"
+          >
             войдите в аккаунт
           </a>
         </p>
@@ -98,8 +100,17 @@ export function ReviewForm({ productId }: ReviewFormProps) {
               </button>
             ))}
           </div>
+          <input
+            type="hidden"
+            value={selectedRating}
+            {...register("rating", {
+              validate: (value) => value > 0 || "Выберите оценку",
+            })}
+          />
           {errors.rating && (
-            <p className="mt-1 text-xs text-red-500">{errors.rating.message}</p>
+            <p className="mt-1 text-xs text-red-500">
+              {errors.rating.message}
+            </p>
           )}
         </div>
 

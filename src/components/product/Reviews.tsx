@@ -5,12 +5,12 @@ import { Star, ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { deleteReview } from "@/store/reviewsSlice";
-import { Review } from "@/types";
+import { DisplayReview } from "@/types";
 import { ReviewForm } from "./ReviewForm";
 
 interface ReviewsProps {
   productId: string;
-  reviews: Review[];
+  reviews: DisplayReview[];
   averageRating: number;
 }
 
@@ -23,25 +23,28 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
   );
   const currentUser = useAppSelector((state) => state.user?.currentUser);
 
-  // Мемоизируем фильтрацию пользовательских отзывов
+  // Получаем все пользовательские отзывы
   const allUserReviews = useAppSelector((state) => state.reviews?.items ?? []);
-  
+
+  // Мемоизируем фильтрацию по productId
   const userReviews = useMemo(
     () => allUserReviews.filter((r) => r.productId === productId),
     [allUserReviews, productId]
   );
 
-  // Объединяем отзывы с уникальными ключами
-  const allReviews = useMemo(() => {
-    const combined = [
-      ...userReviews.map((r) => ({ ...r, source: "user" as const })),
-      ...reviews.map((r, idx) => ({ 
-        ...r, 
-        id: `api-${idx}`,
-        source: "api" as const 
-      })),
-    ];
-    return combined;
+  // Объединяем отзывы из API и пользовательские
+  const allReviews: DisplayReview[] = useMemo(() => {
+    const userDisplayReviews: DisplayReview[] = userReviews.map((r) => ({
+      ...r,
+      source: "user" as const,
+    }));
+
+    const apiDisplayReviews: DisplayReview[] = reviews.map((r) => ({
+      ...r,
+      source: "api" as const,
+    }));
+
+    return [...userDisplayReviews, ...apiDisplayReviews];
   }, [userReviews, reviews]);
 
   if (allReviews.length === 0) {
@@ -62,7 +65,9 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
 
   // Распределение оценок
   const ratingDistribution = [5, 4, 3, 2, 1].map((rating) => {
-    const count = allReviews.filter((r) => Math.round(r.rating) === rating).length;
+    const count = allReviews.filter(
+      (r) => Math.round(r.rating) === rating
+    ).length;
     return {
       rating,
       count,
@@ -133,59 +138,53 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
         </div>
       </div>
 
-      {/* Список отзывов с уникальными ключами */}
+      {/* Список отзывов */}
       <div className="mt-8 space-y-6">
-        {visibleReviews.map((review, index) => {
-          // Генерируем уникальный ключ
-          const key = review.source === "user" 
-            ? `user-${review.id}` 
-            : `api-${review.id || index}`;
+        {visibleReviews.map((review) => (
+          <div key={review.id} className="border-b pb-6 last:border-b-0">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-sm font-bold text-gray-600">
+                  {review.reviewerName.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    {review.reviewerName}
+                    {review.source === "user" && (
+                      <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
+                        Ваш отзыв
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {new Date(review.date).toLocaleDateString("ru-RU", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+              </div>
 
-          return (
-            <div key={key} className="border-b pb-6 last:border-b-0">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-sm font-bold text-gray-600">
-                    {review.reviewerName.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">
-                      {review.reviewerName}
-                      {review.source === "user" && (
-                        <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-                          Ваш отзыв
-                        </span>
-                      )}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {new Date(review.date).toLocaleDateString("ru-RU", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </div>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className={`h-4 w-4 ${
+                        star <= review.rating
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-gray-200"
+                      }`}
+                    />
+                  ))}
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        className={`h-4 w-4 ${
-                          star <= review.rating
-                            ? "fill-yellow-400 text-yellow-400"
-                            : "text-gray-200"
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Кнопка удаления только для своих отзывов */}
-                  {review.source === "user" && 
-                   isAuthenticated &&
-                   currentUser &&
-                   review.reviewerEmail === currentUser.email && (
+                {/* Кнопка удаления для своих отзывов */}
+                {review.source === "user" &&
+                  isAuthenticated &&
+                  currentUser &&
+                  review.reviewerEmail === currentUser.email && (
                     <button
                       onClick={() => handleDeleteReview(review.id)}
                       className="cursor-pointer rounded-lg p-2 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500"
@@ -193,15 +192,14 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
                       <Trash2 className="h-4 w-4" />
                     </button>
                   )}
-                </div>
               </div>
-
-              <p className="mt-3 text-sm leading-relaxed text-gray-700">
-                {review.comment}
-              </p>
             </div>
-          );
-        })}
+
+            <p className="mt-3 text-sm leading-relaxed text-gray-700">
+              {review.comment}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* Кнопка "Показать ещё" */}

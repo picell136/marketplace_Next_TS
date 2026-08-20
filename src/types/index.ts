@@ -137,6 +137,7 @@ export interface AuthState {
 }
 
 export interface Review {
+  id: string;
   rating: number;
   comment: string;
   date: string;
@@ -147,4 +148,9 @@ export interface Review {
 
 export interface UserReview extends Review {
   productId: string;
+}
+
+export interface DisplayReview extends Review {
+  source: "user" | "api";
+  productId?: string;
 }
