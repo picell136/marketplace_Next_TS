@@ -71,7 +71,12 @@ export function ProductPageClient({ productId }: ProductPageClientProps) {
         </p>
       </section>
 
-      <Reviews reviews={product.reviews} averageRating={product.rating} />
+      {/* Отзывы с формой */}
+      <Reviews
+        productId={product.id}
+        reviews={product.reviews}
+        averageRating={product.rating}
+      />
     </div>
   );
 }

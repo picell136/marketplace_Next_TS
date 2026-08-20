@@ -142,4 +142,9 @@ export interface Review {
   date: string;
   reviewerName: string;
   reviewerEmail: string;
+  isUserReview?: boolean;
+}
+
+export interface UserReview extends Review {
+  productId: string;
 }

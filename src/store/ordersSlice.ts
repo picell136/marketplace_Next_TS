@@ -20,9 +20,13 @@ const ordersSlice = createSlice({
     clearOrders(state) {
       state.items = [];
     },
+
+    hydrate(_state, action: PayloadAction<OrdersState>) {
+      return action.payload;
+    },
   },
 });
 
-export const { addOrder, clearOrders } = ordersSlice.actions;
+export const { addOrder, clearOrders, hydrate } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

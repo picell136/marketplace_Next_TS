@@ -7,6 +7,7 @@ import favoritesReducer from "./favoritesSlice";
 import filtersReducer from "./filtersSlice";
 import ordersReducer from "./ordersSlice";
 import userReducer from "./userSlice";
+import reviewsReducer from "./reviewsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     filters: filtersReducer,
     orders: ordersReducer,
     user: userReducer,
+    reviews: reviewsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(dummyJsonApi.middleware),
