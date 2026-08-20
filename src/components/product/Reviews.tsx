@@ -5,12 +5,12 @@ import { Star, ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { deleteReview } from "@/store/reviewsSlice";
-import { DisplayReview } from "@/types";
+import { Review, DisplayReview } from "@/types";
 import { ReviewForm } from "./ReviewForm";
 
 interface ReviewsProps {
   productId: string;
-  reviews: DisplayReview[];
+  reviews: Review[]; // ← Изменили с DisplayReview[] на Review[]
   averageRating: number;
 }
 
@@ -23,20 +23,19 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
   );
   const currentUser = useAppSelector((state) => state.user?.currentUser);
 
-  // Получаем все пользовательские отзывы
   const allUserReviews = useAppSelector((state) => state.reviews?.items ?? []);
 
-  // Мемоизируем фильтрацию по productId
   const userReviews = useMemo(
     () => allUserReviews.filter((r) => r.productId === productId),
     [allUserReviews, productId]
   );
 
-  // Объединяем отзывы из API и пользовательские
+  // Объединяем отзывы и приводим к DisplayReview[]
   const allReviews: DisplayReview[] = useMemo(() => {
     const userDisplayReviews: DisplayReview[] = userReviews.map((r) => ({
       ...r,
       source: "user" as const,
+      productId: r.productId,
     }));
 
     const apiDisplayReviews: DisplayReview[] = reviews.map((r) => ({
@@ -59,11 +58,9 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
     );
   }
 
-  // Пересчитываем средний рейтинг
   const totalRating = allReviews.reduce((sum, r) => sum + r.rating, 0);
   const calculatedAverage = totalRating / allReviews.length;
 
-  // Распределение оценок
   const ratingDistribution = [5, 4, 3, 2, 1].map((rating) => {
     const count = allReviews.filter(
       (r) => Math.round(r.rating) === rating
@@ -180,7 +177,6 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
                   ))}
                 </div>
 
-                {/* Кнопка удаления для своих отзывов */}
                 {review.source === "user" &&
                   isAuthenticated &&
                   currentUser &&
@@ -202,7 +198,6 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
         ))}
       </div>
 
-      {/* Кнопка "Показать ещё" */}
       {allReviews.length > 3 && (
         <button
           onClick={() => setShowAll(!showAll)}
@@ -222,7 +217,6 @@ export function Reviews({ productId, reviews, averageRating }: ReviewsProps) {
         </button>
       )}
 
-      {/* Форма добавления отзыва */}
       <ReviewForm productId={productId} />
     </section>
   );

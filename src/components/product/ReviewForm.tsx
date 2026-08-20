@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Star } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { useAppDispatch, useAppSelector } from "@/store";
-import addReview from "@/store/reviewsSlice";
+import { addReview } from "@/store/reviewsSlice";
 import { UserReview } from "@/types";
+import type { RootState, AppDispatch } from "@/store";
 
 interface ReviewFormProps {
   productId: string;
@@ -18,10 +19,10 @@ interface ReviewFormValues {
 }
 
 export function ReviewForm({ productId }: ReviewFormProps) {
-  const dispatch = useAppDispatch();
-  const currentUser = useAppSelector((state) => state.user?.currentUser);
-  const isAuthenticated = useAppSelector(
-    (state) => state.user?.isAuthenticated ?? false
+  const dispatch = useDispatch<AppDispatch>();
+  const currentUser = useSelector((state: RootState) => state.user?.currentUser);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user?.isAuthenticated ?? false
   );
 
   const [hoveredStar, setHoveredStar] = useState(0);
