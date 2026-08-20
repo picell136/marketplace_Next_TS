@@ -1,5 +1,12 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { CatalogClient } from "@/components/catalog/CatalogClient";
+
+export const metadata: Metadata = {
+  title: "Каталог товаров",
+  description:
+    "Полный каталог товаров с фильтрами по категориям, цене и рейтингу.",
+};
 
 export default function CatalogPage() {
   return (
