@@ -10,7 +10,7 @@ import { mapDummyJsonProductToProduct } from "@/lib/mappers";
 import { ProductGrid } from "@/components/catalog/ProductGrid";
 import { EmptyState } from "@/components/common/EmptyState";
 
-export default function FavoritesPage() {
+export default function FavoritesPageClient() {
   const { data: rawProducts = [], isLoading } = useGetProductsQuery();
 
   const favoriteIds = useAppSelector((state) => state.favorites.productIds);

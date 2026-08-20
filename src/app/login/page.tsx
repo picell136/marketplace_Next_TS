@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LoginPageClient } from "@/components/auth/LoginPageClient";
+import LoginPageClient from "@/components/auth/LoginPageClient";
 
 export const metadata: Metadata = {
   title: "Вход в аккаунт",

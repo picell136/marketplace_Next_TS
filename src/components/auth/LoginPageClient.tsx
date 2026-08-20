@@ -16,7 +16,7 @@ interface LoginFormValues {
   password: string;
 }
 
-export default function LoginPage() {
+export default function LoginPageClient() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [error, setError] = useState<string | null>(null);

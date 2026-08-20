@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FavoritesPageClient } from "@/components/favorites/FavoritesPageClient";
+import FavoritesPageClient from "@/components/favorites/FavoritesPageClient";
 
 export const metadata: Metadata = {
   title: "Избранное",
