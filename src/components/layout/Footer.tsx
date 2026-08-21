@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, CreditCard, Wallet, Smartphone } from "lucide-react";
+import { Mail, Phone, MapPin, CreditCard, Wallet, Smartphone, Ship } from "lucide-react";
 
 import { LuGithub } from "react-icons/lu";
 
@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-                <span className="text-xl font-bold text-gray-900">O</span>
+                <Ship className="h-6 w-6 text-gray-900" />
               </div>
               <span className="text-xl font-bold text-white">OrderShip</span>
             </Link>
