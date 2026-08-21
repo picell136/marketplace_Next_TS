@@ -9,7 +9,7 @@ import { hydrate as hydrateOrders }  from "@/store/ordersSlice";
 import { hydrate as hydrateUser } from "@/store/userSlice";
 import { hydrate as hydrateReviews } from "@/store/reviewsSlice";
 
-const STORAGE_KEY = "marketplace-store";
+const STORAGE_KEY = "ordership-store";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false);

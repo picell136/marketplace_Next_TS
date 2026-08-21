@@ -8,8 +8,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Marketplace — интернет-магазин",
-    template: "%s | Marketplace",
+    default: "OrderShip — интернет-магазин",
+    template: "%s | OrderShip",
   },
   description:
     "Онлайн-маркетплейс с тысячами товаров по выгодным ценам. Быстрая доставка и гарантия качества.",

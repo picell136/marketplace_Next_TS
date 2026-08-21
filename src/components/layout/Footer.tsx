@@ -18,9 +18,9 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-                <span className="text-xl font-bold text-gray-900">M</span>
+                <span className="text-xl font-bold text-gray-900">O</span>
               </div>
-              <span className="text-xl font-bold text-white">Marketplace</span>
+              <span className="text-xl font-bold text-white">OrderShip</span>
             </Link>
 
             <p className="mt-4 max-w-sm text-sm text-gray-400">
@@ -42,10 +42,10 @@ export default function Footer() {
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-gray-500" />
                 <a
-                  href="mailto:info@marketplace.ru"
+                  href="mailto:info@ordership.ru"
                   className="transition-colors hover:text-white"
                 >
-                  info@marketplace.ru
+                  info@ordership.ru
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -213,7 +213,7 @@ export default function Footer() {
       <div className="border-t border-gray-800">
         <div className="container mx-auto flex flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-gray-500 md:flex-row">
           <p>
-            © {currentYear} Marketplace. Все права защищены.
+            © {currentYear} OrderShip. Все права защищены.
           </p>
           <div className="flex gap-4">
             <a href="#" className="transition-colors hover:text-white">

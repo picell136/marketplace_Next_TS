@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { Search, Heart, ShoppingCart, User, X } from "lucide-react";
+import { Search, Heart, ShoppingCart, User, X, Ship } from "lucide-react";
 
 import { useGetProductsQuery } from "@/store/api";
 import { useAppSelector } from "@/store";
@@ -55,8 +55,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
         {/* Логотип */}
-        <Link href="/" className="shrink-0">
-          <span className="text-xl font-bold tracking-tight">Marketplace</span>
+        <Link href="/" className="flex shrink-0 items-center gap-2">
+          <Ship className="h-6 w-6" />
+          <span className="text-xl font-bold tracking-tight">OrderShip</span>
         </Link>
 
         {/* Поиск */}

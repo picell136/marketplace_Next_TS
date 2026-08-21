@@ -1,6 +1,6 @@
 import { User } from "@/types";
 
-const USERS_KEY = "marketplace-users";
+const USERS_KEY = "ordership-users";
 
 // Получить всех зарегистрированных пользователей
 export function getRegisteredUsers(): User[] {
