@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { HomePageClient } from "@/components/pages/HomePageClient";
 
 export const metadata: Metadata = {
-  title: "Главная",
+  title: {
+    absolute:
+      "Интернет-магазин OrderShip | Быстрая доставка с гарантией качества",
+  },
   description:
     "Откройте для себя лучшие товары по выгодным ценам. Быстрая доставка и гарантия качества.",
 };
