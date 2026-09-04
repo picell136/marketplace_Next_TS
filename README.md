@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OrderShip
 
-## Getting Started
+Клиентское веб-приложение интернет-магазина: каталог товаров, корзина, избранное, регистрация, оформление заказа и история покупок.
 
-First, run the development server:
+Проект воспроизводит типичный сценарий покупки в e-commerce и построен на **Next.js** и **TypeScript**. Каталог загружается из публичного API [DummyJSON](https://dummyjson.com), данные пользователя (корзина, заказы, аккаунт, отзывы) хранятся в браузере.
+
+## Возможности
+
+- Главная страница: популярные товары, новинки, акции
+- Каталог: категории, фильтр по цене, сортировка, пагинация, поиск
+- Карточка товара: галерея, цена, наличие, отзывы
+- Корзина и избранное
+- Регистрация и вход
+- Оформление заказа: контакты, доставка (курьер / самовывоз / почта), оплата (карта / наличные)
+- Профиль и список заказов
+
+Оплата и доставка смоделированы на клиенте: реального эквайринга и собственного бэкенда нет.
+
+## Стек
+
+- Next.js 16 (App Router)
+- React 19, TypeScript
+- Redux Toolkit, RTK Query
+- React Hook Form
+- Tailwind CSS
+
+## Требования
+
+- [Node.js](https://nodejs.org) 20 или новее
+- npm (идёт вместе с Node.js)
+
+## Установка и запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте в браузере [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Переменные окружения
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Каталог берётся с DummyJSON. Базовый URL можно задать в файле `.env.local` в корне этого каталога:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_URL=https://dummyjson.com
+```
 
-To learn more about Next.js, take a look at the following resources:
+Если переменная не задана, используется тот же адрес по умолчанию.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Скрипты
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Команда         | Назначение                   |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Режим разработки             |
+| `npm run build` | Сборка для продакшена        |
+| `npm run start` | Запуск собранного приложения |
+| `npm run lint`  | Проверка кода ESLint         |
 
-## Deploy on Vercel
+## Как устроены данные
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Товары и категории** — запросы к DummyJSON через RTK Query
+- **Корзина, избранное, заказы, отзывы пользователя** — Redux + `localStorage` (`ordership-store`)
+- **Учётные записи** — `localStorage` (`ordership-users`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Очистка данных сайта в браузере сбрасывает корзину, заказы и локальных пользователей.
+
+## Структура
+
+```
+src/
+  app/           страницы и маршруты
+  components/    UI и страницы
+  store/         Redux и API
+  lib/           фильтры, маппинг, пользователи
+  types/         типы TypeScript
+```
